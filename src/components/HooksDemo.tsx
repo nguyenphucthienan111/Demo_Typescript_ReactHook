@@ -84,8 +84,11 @@ function MemoDemo() {
   );
 }
 
-// Component cho useCallback
-const ChildComponent = React.memo(({ onClick }) => {
+interface ChildComponentProps {
+  onClick: () => void;
+}
+
+const ChildComponent = React.memo(({ onClick }: ChildComponentProps) => {
   console.log("ChildComponent được render lại");
   return (
     <>
@@ -102,11 +105,11 @@ function UseCallbackDemo() {
     setCount(count + 1);
   }, [count]);
 
-  //   const handleClick = () => {
+    //   const handleClick = () => {
   //   setCount(count + 1);
   // };
 
-  const handleTextChange = (e) => {
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
