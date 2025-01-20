@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useReducer, useCallback } from "react";
 import React from "react";
 
 interface CounterDisplayProps {
@@ -84,6 +84,76 @@ function MemoDemo() {
   );
 }
 
+// Demo useReducer
+const initialState = {
+  members: [],
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_MEMBERS':
+      return { ...state, members: action.payload };
+    case 'ADD_MEMBER':
+      return { ...state, members: [...state.members, action.payload] };
+    case 'DELETE_MEMBER':
+      return {
+        ...state,
+        members: state.members.filter((member) => member !== action.payload),
+      };
+    default:
+      throw new Error("Invalid error!");
+  }
+};
+
+const ReducerDemo = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [newMemberName, setNewMemberName] = useState('');
+  const { members } = state;
+
+  const handleAddMember = () => {
+    if (newMemberName.trim() && !members.includes(newMemberName)) {
+      dispatch({ type: 'ADD_MEMBER', payload: newMemberName });
+      setNewMemberName('');
+    }
+  };
+
+  const handleDeleteMember = (name) => {
+    dispatch({ type: 'DELETE_MEMBER', payload: name });
+  };
+
+  return (
+    <div>
+      <div>
+        <input
+          type="text"
+          value={newMemberName}
+          onChange={(e) => setNewMemberName(e.target.value)}
+          placeholder="Enter member name"
+          style={{
+            padding: '10px',
+            marginRight: '20px'
+          }}
+        />
+        <button onClick={handleAddMember}>Add Member</button>
+      </div>
+      <ul>
+        {members.map((member, index) => (
+          <li
+            key={index}>
+            {member}
+            <button
+              style={{ marginLeft: '15px' }}
+              onClick={() => handleDeleteMember(member)}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 interface ChildComponentProps {
   onClick: () => void;
 }
@@ -158,6 +228,7 @@ const HooksDemo = () => {
 
       <section>
         <h3>4. useReducer</h3>
+        <ReducerDemo />
       </section>
 
       <section>
