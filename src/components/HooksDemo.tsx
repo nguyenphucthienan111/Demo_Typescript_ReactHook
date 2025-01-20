@@ -1,7 +1,11 @@
-import React, { useState,useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
+
+interface CounterDisplayProps {
+  count: number;
+}
 
 // Component con hiển thị giá trị bộ đếm
-function CounterDisplay({ count }) {
+function CounterDisplay({ count }: CounterDisplayProps) {
   return <h2>Giá trị hiện tại: {count}</h2>;
 }
 
@@ -17,7 +21,10 @@ function CounterApp() {
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       {/* Truyền state (count) vào component con */}
       <CounterDisplay count={count} />
-      <button onClick={handleIncrease} style={{ fontSize: "16px", padding: "10px" }}>
+      <button
+        onClick={handleIncrease}
+        style={{ fontSize: "16px", padding: "10px" }}
+      >
         Tăng
       </button>
     </div>
@@ -66,7 +73,10 @@ function MemoDemo() {
         />
       </label>
       <h4>Số gấp đôi: {doubledNumber}</h4>
-      <button onClick={() => setCount(count + 1)} style={{ marginTop: "10px", padding: "10px" }}>
+      <button
+        onClick={() => setCount(count + 1)}
+        style={{ marginTop: "10px", padding: "10px" }}
+      >
         Tăng Count: {count}
       </button>
     </div>
@@ -111,4 +121,3 @@ const HooksDemo = () => {
 };
 
 export default HooksDemo;
-
