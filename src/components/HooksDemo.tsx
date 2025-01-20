@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useReducer, useCallback } from "react";
 import React from "react";
+import { UpdateUser, UserProfile } from "./context/Context";
 
 interface CounterDisplayProps {
   count: number;
@@ -83,6 +84,7 @@ function MemoDemo() {
     </div>
   );
 }
+
 
 // Demo useReducer
 const initialState = {
@@ -224,6 +226,8 @@ const HooksDemo = () => {
 
       <section>
         <h3>3. useContext</h3>
+        <UserProfile />
+        <UpdateUser />
       </section>
 
       <section>
