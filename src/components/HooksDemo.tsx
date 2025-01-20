@@ -177,7 +177,7 @@ function UseCallbackDemo() {
     setCount(count + 1);
   }, [count]);
 
-  //   const handleClick = () => {
+    //   const handleClick = () => {
   //   setCount(count + 1);
   // };
 
