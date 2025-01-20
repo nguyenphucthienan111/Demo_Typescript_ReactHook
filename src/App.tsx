@@ -1,36 +1,15 @@
-import { useState } from "react";
-import "./App.css";
-import TypeScriptDemo from "./components/TypeScriptDemo";
-import HooksDemo from "./components/HooksDemo";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HooksDemo from './components/HooksDemo';
+import UseMemoDemo from './pages/UseMemoDemo';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<"typescript" | "hooks">(
-    "typescript"
-  );
-
   return (
-    <div className="container">
-      <h1>React + TypeScript Demo</h1>
-
-      <div className="tab-buttons">
-        <button
-          className={activeTab === "typescript" ? "active" : ""}
-          onClick={() => setActiveTab("typescript")}
-        >
-          TypeScript Features
-        </button>
-        <button
-          className={activeTab === "hooks" ? "active" : ""}
-          onClick={() => setActiveTab("hooks")}
-        >
-          React Hooks
-        </button>
-      </div>
-
-      <div className="content">
-        {activeTab === "typescript" ? <TypeScriptDemo /> : <HooksDemo />}
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HooksDemo />} />
+        <Route path="/usememo-demo" element={<UseMemoDemo />} />
+      </Routes>
+    </Router>
   );
 }
 
