@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import React from "react";
 
 interface CounterDisplayProps {
   count: number;
@@ -83,6 +84,56 @@ function MemoDemo() {
   );
 }
 
+// Component cho useCallback
+const ChildComponent = React.memo(({ onClick }) => {
+  console.log("ChildComponent được render lại");
+  return (
+    <>
+      <button onClick={onClick}>Click me</button>
+    </>
+  );
+});
+
+function UseCallbackDemo() {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("");
+
+  const handleClick = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+
+  //   const handleClick = () => {
+  //   setCount(count + 1);
+  // };
+
+  const handleTextChange = (e) => {
+    setText(e.target.value);
+  };
+
+  console.log("Parent Component được render lại");
+
+  return (
+    <div>
+      <div style={{ marginBottom: "20px" }}>
+        <p>Count: {count}</p>
+        <div>------------------------------------------</div>
+        <ChildComponent onClick={handleClick} />
+        <div>------------------------------------------</div>
+      </div>
+
+      <div>
+        <input
+          type="text"
+          value={text}
+          onChange={handleTextChange}
+          placeholder="Nhập text để test re-render"
+        />
+        <p>Text: {text}</p>
+      </div>
+    </div>
+  );
+}
+
 const HooksDemo = () => {
   return (
     <div className="hooks-demo">
@@ -115,6 +166,7 @@ const HooksDemo = () => {
       </section>
       <section>
         <h3>7. useCallback</h3>
+        <UseCallbackDemo />
       </section>
     </div>
   );
