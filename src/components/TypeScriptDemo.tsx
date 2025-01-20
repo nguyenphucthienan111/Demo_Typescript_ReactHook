@@ -6,7 +6,7 @@ const TypeScriptDemo = () => {
       <section>
         <h3>1. Type Annotations</h3>
         <p>Basic type annotations in TypeScript</p>
-        <pre>
+        <pre style={{ color: "red" }}>
           {`let name: string = "John";
 let age: number = 25;
 let isActive: boolean = true;`}
