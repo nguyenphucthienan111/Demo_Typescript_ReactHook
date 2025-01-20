@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useMemo } from "react";
 
 // Component con hiển thị giá trị bộ đếm
 function CounterDisplay({ count }) {
@@ -42,6 +42,36 @@ function EffectDemo() {
     </div>
   );
 }
+// Component cho useMemo
+function MemoDemo() {
+  const [number, setNumber] = useState<number>(0);
+  const [count, setCount] = useState<number>(0);
+
+  // Tính toán số gấp đôi chỉ khi `number` thay đổi
+  const doubledNumber = useMemo(() => {
+    console.log("Tính toán lại số gấp đôi...");
+    return number * 2;
+  }, [number]);
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <h3>useMemo Demo</h3>
+      <label>
+        Nhập số:{" "}
+        <input
+          type="number"
+          value={number}
+          onChange={(e) => setNumber(parseInt(e.target.value, 10) || 0)}
+          style={{ padding: "5px" }}
+        />
+      </label>
+      <h4>Số gấp đôi: {doubledNumber}</h4>
+      <button onClick={() => setCount(count + 1)} style={{ marginTop: "10px", padding: "10px" }}>
+        Tăng Count: {count}
+      </button>
+    </div>
+  );
+}
 
 const HooksDemo = () => {
   return (
@@ -68,6 +98,13 @@ const HooksDemo = () => {
 
       <section>
         <h3>5. useRef</h3>
+      </section>
+      <section>
+        <h3>6. useMemo</h3>
+        <MemoDemo />
+      </section>
+      <section>
+        <h3>7. useCallback</h3>
       </section>
     </div>
   );
