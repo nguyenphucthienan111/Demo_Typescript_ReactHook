@@ -1,11 +1,10 @@
 import React, { createContext, useState, useContext } from "react";
 
-// 1. Create a Context
 const UserContext = createContext();
 
 // 2. Create a Provider component
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({ name: "John Doe", age: 25 });
+  const [user, setUser] = useState({ name: "FPT University", age: 25 });
 
   const updateUser = (newUserData) => {
     setUser((prevUser) => ({ ...prevUser, ...newUserData }));
@@ -35,7 +34,7 @@ export const UserProfile = () => {
 export const UpdateUser = () => {
     const { user, updateUser } = useContext(UserContext);
   
-    const changeName = () => updateUser({ name: "Jane Smith" });
+    const changeName = () => updateUser({ name: "FPT Software Academy" });
     const incrementAge = () => updateUser({ age: user.age + 1 });
   
     return (
