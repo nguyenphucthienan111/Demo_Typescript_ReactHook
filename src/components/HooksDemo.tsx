@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useReducer, useCallback } from "react";
+import { useState, useEffect, useMemo, useReducer, useCallback, useRef } from "react";
 import React from "react";
 import { UpdateUser, UserProfile } from "./context/Context";
 
@@ -168,7 +168,35 @@ const ChildComponent = React.memo(({ onClick }: ChildComponentProps) => {
     </>
   );
 });
+//useRef
+function DemoUseRef() {
+  const [count, setCount] = useState(60);
+  const timeId = useRef<NodeJS.Timeout | null>(null);
 
+  const handleStart = () => {
+    if (timeId.current !== null) {
+      clearInterval(timeId.current);
+    }
+    timeId.current = setInterval(() => {
+      setCount((prevCount) => prevCount - 1);
+    }, 1000);
+  };
+
+  const handleStop = () => {
+    if (timeId.current !== null) {
+      clearInterval(timeId.current);
+      timeId.current = null;
+    }
+  };
+
+  return (
+    <div className="count-clock">
+      <h1>{count}</h1>
+      <button onClick={handleStart}>Start</button>
+      <button onClick={handleStop}>Stop</button>
+    </div>
+  );
+}
 function UseCallbackDemo() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState("");
@@ -237,6 +265,7 @@ const HooksDemo = () => {
 
       <section>
         <h3>5. useRef</h3>
+        <DemoUseRef/>
       </section>
       <section>
         <h3>6. useMemo</h3>
