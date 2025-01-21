@@ -1,6 +1,7 @@
 import Enum from "./Enum";
 import UnionTypes from "./UnionTypes";
 
+
 const TypeScriptDemo = () => {
   // Interfaces
   interface User {

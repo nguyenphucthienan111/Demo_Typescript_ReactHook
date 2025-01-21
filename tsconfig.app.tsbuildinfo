@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/hooksdemo.tsx","./src/components/typescriptdemo.tsx","./src/components/context/context.tsx"],"errors":true,"version":"5.7.3"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/enum.tsx","./src/components/hooksdemo.tsx","./src/components/typescriptdemo.tsx","./src/components/uniontypes.tsx","./src/components/context/context.tsx"],"version":"5.7.3"}

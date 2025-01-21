@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
-
+import { useEffect } from "react";
 
 enum NumericEnum {
   OptionOne = 123,
   OptionTwo = 234,
 }
-
 
 enum StringEnum {
   OptionA = "ABC",
@@ -14,14 +12,11 @@ enum StringEnum {
 
 const Enum = () => {
   useEffect(() => {
-
     console.log("Numeric Enum - OptionOne:", NumericEnum.OptionOne);
-    console.log("Numeric Enum - OptionTwo:", NumericEnum.OptionTwo); 
+    console.log("Numeric Enum - OptionTwo:", NumericEnum.OptionTwo);
 
-
-    console.log("String Enum - OptionA:", StringEnum.OptionA); 
-    console.log("String Enum - OptionB:", StringEnum.OptionB); 
-
+    console.log("String Enum - OptionA:", StringEnum.OptionA);
+    console.log("String Enum - OptionB:", StringEnum.OptionB);
   }, []);
 
   return (
