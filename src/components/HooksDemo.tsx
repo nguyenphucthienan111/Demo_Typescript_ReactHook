@@ -1,4 +1,11 @@
-import { useState, useEffect, useMemo, useReducer, useCallback, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  useMemo,
+  useReducer,
+  useCallback,
+  useRef,
+} from "react";
 import React from "react";
 import { UpdateUser, UserProfile } from "./context/Context";
 
@@ -85,42 +92,53 @@ function MemoDemo() {
   );
 }
 
-
 // Demo useReducer
-const initialState = {
+interface State {
+  members: string[];
+}
+
+interface Action {
+  type: "SET_MEMBERS" | "ADD_MEMBER" | "DELETE_MEMBER";
+  payload: string | string[];
+}
+
+const initialState: State = {
   members: [],
 };
 
-const reducer = (state, action) => {
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'SET_MEMBERS':
-      return { ...state, members: action.payload };
-    case 'ADD_MEMBER':
-      return { ...state, members: [...state.members, action.payload] };
-    case 'DELETE_MEMBER':
+    case "SET_MEMBERS":
+      return { ...state, members: action.payload as string[] };
+    case "ADD_MEMBER":
+      return {
+        ...state,
+        members: [...state.members, action.payload as string],
+      };
+    case "DELETE_MEMBER":
       return {
         ...state,
         members: state.members.filter((member) => member !== action.payload),
       };
     default:
-      throw new Error("Invalid error!");
+      throw new Error("Invalid action!");
   }
 };
 
 const ReducerDemo = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [newMemberName, setNewMemberName] = useState('');
+  const [newMemberName, setNewMemberName] = useState("");
   const { members } = state;
 
   const handleAddMember = () => {
     if (newMemberName.trim() && !members.includes(newMemberName)) {
-      dispatch({ type: 'ADD_MEMBER', payload: newMemberName });
-      setNewMemberName('');
+      dispatch({ type: "ADD_MEMBER", payload: newMemberName });
+      setNewMemberName("");
     }
   };
 
-  const handleDeleteMember = (name) => {
-    dispatch({ type: 'DELETE_MEMBER', payload: name });
+  const handleDeleteMember = (name: string) => {
+    dispatch({ type: "DELETE_MEMBER", payload: name });
   };
 
   return (
@@ -132,19 +150,18 @@ const ReducerDemo = () => {
           onChange={(e) => setNewMemberName(e.target.value)}
           placeholder="Enter member name"
           style={{
-            padding: '10px',
-            marginRight: '20px'
+            padding: "10px",
+            marginRight: "20px",
           }}
         />
         <button onClick={handleAddMember}>Add Member</button>
       </div>
       <ul>
         {members.map((member, index) => (
-          <li
-            key={index}>
+          <li key={index}>
             {member}
             <button
-              style={{ marginLeft: '15px' }}
+              style={{ marginLeft: "15px" }}
               onClick={() => handleDeleteMember(member)}
             >
               Delete
@@ -205,7 +222,7 @@ function UseCallbackDemo() {
     setCount(count + 1);
   }, [count]);
 
-    //   const handleClick = () => {
+  //   const handleClick = () => {
   //   setCount(count + 1);
   // };
 
@@ -265,7 +282,7 @@ const HooksDemo = () => {
 
       <section>
         <h3>5. useRef</h3>
-        <DemoUseRef/>
+        <DemoUseRef />
       </section>
       <section>
         <h3>6. useMemo</h3>
