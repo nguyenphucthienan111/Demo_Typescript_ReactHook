@@ -1,13 +1,21 @@
-import React, { createContext, useState, useContext } from "react";
+import { createContext, ReactNode, useState, useContext } from "react";
 
-// 1. Create a Context
-const UserContext = createContext();
+interface User {
+  name: string;
+  age: number;
+}
 
-// 2. Create a Provider component
-export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({ name: "John Doe", age: 25 });
+interface UserContextType {
+  user: User;
+  updateUser: (newUserData: Partial<User>) => void;
+}
 
-  const updateUser = (newUserData) => {
+const UserContext = createContext<UserContextType | undefined>(undefined);
+
+export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User>({ name: "FPT University", age: 25 });
+
+  const updateUser = (newUserData: Partial<User>) => {
     setUser((prevUser) => ({ ...prevUser, ...newUserData }));
   };
 
@@ -18,9 +26,16 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// 3. Component to display user data
+const useUserContext = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUserContext must be used within a UserProvider");
+  }
+  return context;
+};
+
 export const UserProfile = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUserContext();
 
   return (
     <div style={{ textAlign: "center", marginTop: "20px" }}>
@@ -31,19 +46,18 @@ export const UserProfile = () => {
   );
 };
 
-// 4. Component to update user data
 export const UpdateUser = () => {
-    const { user, updateUser } = useContext(UserContext);
-  
-    const changeName = () => updateUser({ name: "Jane Smith" });
-    const incrementAge = () => updateUser({ age: user.age + 1 });
-  
-    return (
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <button onClick={changeName}>Change Name</button>
-        <button onClick={incrementAge} style={{ marginLeft: "10px" }}>
-          Increment Age
-        </button>
-      </div>
-    );
-  };
+  const { user, updateUser } = useUserContext();
+
+  const changeName = () => updateUser({ name: "FPT Software Academy" });
+  const incrementAge = () => updateUser({ age: user.age + 1 });
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <button onClick={changeName}>Change Name</button>
+      <button onClick={incrementAge} style={{ marginLeft: "10px" }}>
+        Increment Age
+      </button>
+    </div>
+  );
+};

@@ -109,7 +109,7 @@ const reducer = (state, action) => {
 
 const ReducerDemo = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [newMemberName, setNewMemberName] = useState('');
+  const [newMemberName, setNewMemberName] = useState<string>('');
   const { members } = state;
 
   const handleAddMember = () => {
@@ -119,7 +119,7 @@ const ReducerDemo = () => {
     }
   };
 
-  const handleDeleteMember = (name) => {
+  const handleDeleteMember = (name: string) => {
     dispatch({ type: 'DELETE_MEMBER', payload: name });
   };
 
@@ -133,15 +133,14 @@ const ReducerDemo = () => {
           placeholder="Enter member name"
           style={{
             padding: '10px',
-            marginRight: '20px'
+            marginRight: '20px',
           }}
         />
         <button onClick={handleAddMember}>Add Member</button>
       </div>
       <ul>
-        {members.map((member, index) => (
-          <li
-            key={index}>
+        {members.map((member: string, index: number) => (
+          <li key={index}>
             {member}
             <button
               style={{ marginLeft: '15px' }}
