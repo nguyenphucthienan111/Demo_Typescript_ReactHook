@@ -1,3 +1,6 @@
+import Enum from "./Enum";
+import UnionTypes from "./UnionTypes";
+
 const TypeScriptDemo = () => {
   // Interfaces
   interface User {
@@ -117,7 +120,8 @@ const product: Product = { id: 101, name: "Laptop", price: 1200 };`}
         <h3>5. Union Types & Enums</h3>
         <p>Union types and enumerations</p>
         <pre>
-         
+              <UnionTypes/>
+              <Enum/>
         </pre>
       </section>
     </div>
